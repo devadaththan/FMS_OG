@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">       
+        
+        <style>
+            body{
+              background: linear-gradient(90deg, #c7c5f4, #776bcc);
+            font-family: 'Oswald', sans-serif;
+            font-size: 18px;
+            height: 100vh;
+            }
+            .messages {
+              list-style: none;
+              padding: 10px;
+              margin: 0;
+          }
+  
+          .messages li {
+              padding: 10px;
+              margin-bottom: 10px;
+              border-radius: 4px;
+          }
+  
+          .messages.success {
+              background-color: #dff0d8;
+              border-color: #d0e9c6;
+              color: #3c763d;
+          }
+  
+          .messages.error {
+              background-color: #f2dede;
+              border-color: #ebccd1;
+              color: #a94442;
+          }
+          .boimg{
+            position:fixed;
+            margin-top:220px;
+            height: 370px;
+            margin-left: 250px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+          }
+          .trkfile{
+            /* background-color: green;  */
+            color: rgba(0,0,0,.5);
+            {% comment %} font-weight: lighter;
+            font-size: 15px; {% endcomment %}
+            text-decoration: none; /* Remove underline by default */
+            transition: color 0.3s;
+
+          }
+          .trkfile:hover {
+            color: rgba(0,0,0,.9); /* Set the text color on hover */
+            text-decoration: none;
+        }
+          
+        
+      
+      </style>
+        </style>
+        <script>
+          document.addEventListener('DOMContentLoaded', function() {
+              var messages = document.querySelectorAll('.messages .success,.messages .error');
+              {% for message in messages %}
+                if (messages.length > 0) {
+                  messages.forEach(function(message) {
+                      setTimeout(function() {
+                          message.style.display = 'none';
+                      }, 3000);  // Dismiss after 5 seconds (adjust as needed)
+                  });
+                }
+              {% endfor %}
+              
+          });
+          </script>
+          
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">FMS</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'home_page' %}">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'about_page' %}">about</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">logout</a>
+                      </li>
+                    {% else %}
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">login</a>
+                      </li> 
+                    {% endif %}
+                    
+                    <!-- Add more nav items as needed -->
+                  </ul> 
+                <form class="form-inline my-2 my-lg-0">
+                    <a class="trkfile" href="#">Track File</a>
+                </form>
+              
+            </div>
+        </nav>
+        <div class='bagimg'>
+          {% if messages %}
+            <ul class="messages">
+              {% for message in messages %}
+                  <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+              {% endfor %}
+            </ul>
+
+        {% endif %}
+        <div class='bgcenter'>
+        <img class='boimg' src="../static/dms-banner.jpg" alt="Image Description">
+        </div>
+
+        </div>
+          
+        <section class="fixed-bottom">
+          <footer class="pt-2 pb-2  bg-light text-black">
+            <div class="container">
+              <div class="row align-items-center">
+                <div class="col-12 col-md-8">
+                  <h4>Emergency Contact Number: 0123456789</h4>
+                </div>
+                <div class="col-12 col-md-4 mt-4 mt-md-0 text-center text-md-end">
+                  © 2022 NASC All Rights Reserved
+                </div>
+              </div>
+            </div>
+          </footer>
+        </section>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</html>
